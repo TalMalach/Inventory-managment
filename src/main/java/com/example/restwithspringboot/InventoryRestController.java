@@ -19,7 +19,7 @@ public class InventoryRestController {
 		return "Welcome to the inventory RESTful API with spring boot!";
 	}
 
-	@RequestMapping("/show-table")
+	@RequestMapping(value = "/show-table", method = RequestMethod.GET)
 	@ApiOperation(value = "List all the data for the client")
 	public String showTableToTheClient() throws SQLException {
 		String ans = db.showTable();
@@ -48,7 +48,7 @@ public class InventoryRestController {
 		return ans;
 	}
 
-	@RequestMapping(value = "/add-product/{productName}/{productAmount}/{InventoryCode}", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/{productName}/{productAmount}/{InventoryCode}", method = RequestMethod.POST)
 	@ApiOperation(value = "Adds a new product to the Inventory", notes = "The function recieves three parameters according to the database structure(id is auto increament primary key)")
 	public String addProduct(@PathVariable("productName") String productName,
 			@PathVariable("productAmount") String productAmount, @PathVariable("InventoryCode") String InventoryCode)
@@ -59,7 +59,7 @@ public class InventoryRestController {
 		return db.insertRecord(productName, product_amount, inventory_code);
 	}
 
-	@RequestMapping(value = "/set-quantity/{productId}/{productAmount}", method = RequestMethod.GET)
+	@RequestMapping(value = "/set-quantity/{productId}/{productAmount}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Sets new quantity value for a specified product")
 	public String setQuantity(@PathVariable("productId") String productId,
 			@PathVariable("productAmount") String productAmount) throws SQLException {
@@ -68,7 +68,7 @@ public class InventoryRestController {
 		return db.updateRecord(product_id, productAmount);
 	}
 
-	@RequestMapping(value = "/delete-product/{productId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/{productId}", method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes a product from the inventory by a specified id number")
 	public String deleteProduct(@PathVariable("productId") String productId) throws SQLException {
 		String ans = "";
