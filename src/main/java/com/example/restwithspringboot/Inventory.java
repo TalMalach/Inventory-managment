@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Inventory {
 
 	private static int id = 0;
-	private final String name;
-	private final int products_amount;
+	private String name;
+	private int products_amount;
 
 	ArrayList<Product> products_list;
 
